@@ -1,0 +1,29 @@
+<div class="navigation">
+{{#if (admin)}}
+<a href="/"> עמוד הבית </a>
+<a href="/profile"> הגדרות </a>
+<a href="/adding_therapist"> הוספת מטפל </a>
+<a href="/adding_patient"> הוספת מטופל </a>
+<a href="/about"> אודות </a>
+<a href="/contact"> צור קשר </a>
+{{else if (therapist)}}
+<a href="/"> עמוד הבית </a>
+<a href="/profile"> הגדרות </a>
+<a href="/adding_patient"> הוספת מטופל </a>
+<a href="/my_patients"> מטופלים שלי </a>
+<a href="/about"> אודות </a>
+<a href="/contact"> צור קשר </a>
+{{else if (patient)}}
+<a href="/"> עמוד הבית </a>
+<a href="/profile"> הגדרות </a>
+<a href="/choose_therapist"> בחירת מטפל </a>
+<a href="/status"> סטטוס בקשה </a>
+<a href="/about"> אודות </a>
+<a href="/contact"> צור קשר </a>
+{{else}}
+<a href="/"> כניסה </a>
+<a href="/register"> הרשמה </a>
+<a href="/about"> אודות </a>
+<a href="/contact"> צור קשר </a>
+{{/if}}
+</div>

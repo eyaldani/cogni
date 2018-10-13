@@ -1,0 +1,76 @@
+<!-- <!DOCTYPE html>
+<html>
+<body> -->
+
+<!-- <h1>My First JavaScript</h1> -->
+
+<!-- <p id="demo">JavaScript can change the style of an HTML element.</p> -->
+
+<!-- <script>
+function myFunction() {
+    document.getElementById("demo").style.fontSize = "25px";
+    document.getElementById("demo").style.color = "red";
+    document.getElementById("demo").style.backgroundColor = "yellow";
+}
+</script>
+
+<button type="button" onclick="myFunction()">Click Me!</button> -->
+
+<!--
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+
+    {{> header}}
+    {{> toolbar}}
+    <body dir="rtl" span style="font-family: tahoma;">
+        <h1>הרשמה למערכת קוגני</h1>
+        <form method="get" action="/">
+            <table>
+              <script>
+
+                function check() {
+                  if (document.getElementById('opasswordID').value != document.getElementById('passwordID').value) {
+                      alert("הסיסמאות שהזנת אינן תואמות");
+                      document.getElementById('opasswordID').style.backgroundColor = "red";
+                      document.getElementById('passwordID').style.backgroundColor = "red";
+                  } else {
+                    document.getElementById('opasswordID').style.backgroundColor = "green";
+                    document.getElementById('passwordID').style.backgroundColor = "green";
+                  }
+                }
+                </script>
+                <tr>
+                    <td>
+          סיסמה:
+          </td>
+                    <td>
+            <input type="password" id="passwordID" name="password" class="wider" required>
+          </td>
+                </tr>
+                <tr>
+                    <td>
+          אישור סיסמה:
+          </td>
+                    <td>
+            <input type="password" id="opasswordID" name="opassword" class="wider" required>
+          </td>
+                </tr>
+
+            </table>
+        </form>
+
+
+
+
+        <input type="submit" value="בדיקה" onclick="check()">
+        {{> footer}}
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    {{> header}}
+    {{> toolbar}}
+  
+
+    <body dir="rtl" span style="font-family: tahoma;">
+      <form method="post" action="/adding_therapist">
+          <table>
+              <tr></tr><tr></tr>
+              <tr>
+                  <td colspan="2">
+                    <p style="color:green">
+          הזן את פרטי המטפל אותו תהיה מעוניין להוסיף למערכת
+        </p>
+        </td>
+              </tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr>
+                  <td>
+          קוד משתמש:
+        </td>
+                  <td>
+          <input type="text" name="username" class="wider" required>
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        סיסמה:
+        </td>
+                  <td>
+          <input type="password" id=passwordID name="password" class="wider" required>
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        אישור סיסמה:
+        </td>
+                  <td>
+          <input type="password" id="opasswordID" name="opassword" class="wider" required>
+        </td>
+              </tr>
+            <tr>
+                <td>
+        שם פרטי:
+        </td>
+                  <td>
+          <input type="text" name="firstname" class="wider" maxlength="20" required>
+        </td>
+              </tr>
+    <tr>
+        <td>
+          שם משפחה:
+          </td>
+                    <td>
+            <input type="text" name="lastname" class="wider" maxlength="20" required>
+          </td>
+                </tr>
+    <tr>
+        <td>
+        מייל:
+          </td>
+                    <td>
+            <input type="email" name="email" class="wider" maxlength="40" required>
+          </td>
+                </tr>
+
+    <tr>
+        <td>
+      פלאפון:
+          </td>
+                    <td>
+            <input type="tel" name="phone" class="wider" maxlength="10" required>
+          </td>
+                </tr>
+    <tr>
+        <td>
+    תחום עיקרי:
+          </td>
+                    <td>
+            <input type="radio" name="title" class="wider" value="clinical">קלינית<br>
+            <input type="radio" name="title" class="wider" value="educational">חינוכית<br>
+            <input type="radio" name="title" class="wider" value="rehabilitation">שיקומית<br>
+            <input type="radio" name="title" class="wider">אחר<input type = "text" name="other"><br>
+          </td>
+                </tr>
+
+
+                    <script>
+
+                      function check() {
+                        if (document.getElementById('opasswordID').value != document.getElementById('passwordID').value) {
+                            document.getElementById('opasswordID').style.backgroundColor = "red";
+                            document.getElementById('passwordID').style.backgroundColor = "red";
+                            passwordID.setCustomValidity('הסיסמאות שהזנת אינן תואמות');
+                        } else {
+                          passwordID.setCustomValidity('');
+                        }
+                      }
+                      </script>
+
+
+
+          </table>
+          <input type="submit" value="הוסף מטפל למערכת" onclick="check()">
+
+      </form>
+
+        {{> footer}}
+
+
+
+
+    </body>
+</html>

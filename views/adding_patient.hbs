@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    {{> header}}
+    {{> toolbar}}
+
+    {{#if (invalidInput)}}
+    <p style="color:red">
+      המטופל כבר קיים במערכת או שאחד מהנתונים לא הוזן כראוי.
+    </p>
+    {{else}}
+    <p style="color:green">
+    הזן את פרטי המטופל אותו תהיה מעוניין להוסיף למערכת
+    </p>
+    {{/if}}
+
+    <body dir="rtl" span style="font-family: tahoma;">
+      <form method="post" action="/adding_patient">
+          <table>
+              <tr></tr><tr></tr>
+              <tr>
+                  <td>
+
+        </td>
+              </tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr>
+                  <td>
+          קוד משתמש:
+        </td>
+                  <td>
+          <input type="text" name="username" class="wider" required>
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        סיסמה:
+        </td>
+                  <td>
+          <input type="password" id=passwordID name="password" class="wider" required>
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        אישור סיסמה:
+        </td>
+                  <td>
+          <input type="password" id="opasswordID" name="opassword" class="wider" required>
+        </td>
+              </tr>
+            <tr>
+                <td>
+        שם פרטי:
+        </td>
+                  <td>
+          <input type="text" name="firstname" class="wider" maxlength="20" required>
+        </td>
+              </tr>
+    <tr>
+        <td>
+          שם משפחה:
+          </td>
+                    <td>
+            <input type="text" name="lastname" class="wider" maxlength="20" required>
+          </td>
+                </tr>
+    <tr>
+        <td>
+        מייל:
+          </td>
+                    <td>
+            <input type="email" name="email" class="wider" maxlength="40" required>
+          </td>
+                </tr>
+
+    <tr>
+        <td>
+      פלאפון:
+          </td>
+                    <td>
+            <input type="tel" name="phone" class="wider" maxlength="10" required>
+          </td>
+                </tr>
+    <tr>
+        <td>
+      מין:
+          </td>
+                    <td>
+            <input type="radio" name="gender" class="wider" value="male">גבר<br>
+            <input type="radio" name="gender" class="wider" value="female">אישה<br>
+          </td>
+                </tr>
+
+    <tr>
+        <td>
+      תאריך לידה:
+          </td>
+                    <td>
+            <input type="date" name="dateofbirth" class="wider" min="1900-01-01" required><br>
+          </td>
+                </tr>
+
+
+    <tr>
+        <td>
+      כתובת:
+          </td>
+                    <td>עיר
+            <input type="text" name="city" class="wider" maxlength="20" required>
+          </td>
+          <td>רחוב
+            <input type="text" name="street" class="wider" maxlength="20" required><br>
+          </td>
+          <td>מספר בית
+            <input type="number" name="houseNumber" class="wider" maxlength="5" required><br>
+          </td>
+                </tr>
+
+              <tr>
+                  <td>
+                    <script>
+
+                      function check() {
+                        if (document.getElementById('opasswordID').value != document.getElementById('passwordID').value) {
+                            document.getElementById('opasswordID').style.backgroundColor = "red";
+                            document.getElementById('passwordID').style.backgroundColor = "red";
+                            passwordID.setCustomValidity('הסיסמאות שהזנת אינן תואמות');
+                        } else {
+                          passwordID.setCustomValidity('');
+                        }
+                      }
+                      </script>
+
+
+                    <input type="submit" value="הוסף מטופל למערכת" onclick="check()">
+      </td>
+                <td>
+      </td>
+            </tr>
+
+          </table>
+      </form>
+
+        {{> footer}}
+
+
+
+
+    </body>
+</html>

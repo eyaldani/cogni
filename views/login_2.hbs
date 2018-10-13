@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html dir>
+{{> toolbar}}
+{{> header}}
+    <head>
+        <meta charset="utf-8">
+        <title>{{pageTitle}}</title>
+    </head>
+    <body dir="rtl" span style="font-family: tahoma;">
+        <h1>Cogni ברואים הבאים למערכת</h1>
+        <p>דף התחברות למערכת</p>
+        <form method="post" action="/">
+            <table>
+                <tr></tr><tr></tr>
+                <tr>
+                    <td colspan="2" style="color:red">
+					שם המשתמש או הסיסמה שהזנת שגויים. <br>
+          הזן שוב את פרטיך או הירשם למערכת.
+					</td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr>
+                    <td>
+						קוד משתמש:
+					</td>
+                    <td>
+						<input type="text" name="username" class="wider">
+					</td>
+                </tr>
+                <tr>
+                    <td>
+					סיסמה:
+					</td>
+                    <td>
+						<input type="text" name="password" class="wider">
+					</td>
+                </tr>
+              <tr>
+                  <td colspan="2">
+          <input type="submit" value="התחבר" class="important_button">
+        </td>
+                  <td>
+        </td>
+              </tr>
+
+            </table>
+        </form>
+        <p>
+        משתמש חדש במערכת? <br>
+        <a href="/register">הירשם כעת<a/>
+        </p>
+
+        {{> footer}}
+    </body>
+</html>

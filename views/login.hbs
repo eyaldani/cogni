@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir>
+{{> toolbar}}
+{{> header}}
+
+<div class=center>
+    <body dir="rtl" span style="font-family: tahoma;">
+        <h1>Cogni</h1>
+        <p></p>
+        <div class=login_form>
+        <form method="post" action="/">
+            <table>
+                <tr></tr><tr></tr>
+                <tr>
+                    <td colspan="2" class="title1">
+                      {{#if (invalidInput)}}
+                      <p style="color:red">
+                        שם המשתמש או הסיסמה אינם נכונים <br>
+                        נא להזין שוב את הפרטים
+                      </p>
+                    {{else if (successfully_registered)}}
+                    <p style="color:green">ההרשמה בוצעה בהצלחה! </p>
+                      {{else}}
+						הזן פרטים בשביל להתחבר למערכת
+            {{/if}}
+					</td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr>
+                    <td>
+						קוד משתמש:
+					</td>
+                    <td>
+						<input type="text" name="username" class="wider">
+					</td>
+                </tr>
+                <tr>
+                    <td>
+					סיסמה:
+					</td>
+                    <td>
+						<input type="text" name="password" class="wider">
+					</td>
+                </tr>
+              <tr>
+                  <td colspan="2">
+          <input type="submit" value="התחבר" class="important_button">
+        </td>
+                  <td>
+        </td>
+              </tr>
+
+            </table>
+        </form>
+
+        <p>
+        משתמש חדש במערכת? <br>
+        <a href="/register">הירשם כעת<a/>
+        </p>
+</div>
+        {{> footer}}
+    </body>
+  </div>
+</html>

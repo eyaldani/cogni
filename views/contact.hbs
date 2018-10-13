@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{{> header}}
+{{> toolbar}}
+
+<body dir="rtl" span style="font-family: tahoma;">
+
+
+
+
+<h1 class="center">צור קשר</h1>
+<div class="contact2_form">
+    <h2>צרו איתנו קשר באופן ישיר באמצעות:</h2>
+
+    <p>
+      מספר טלפון: 972507364944 <p></p>
+       כתובת מייל: zeev02@netvision.net.il
+    </p>
+  </div>
+
+<div class="contact2_form">
+  <form method="post" action="/contact">
+    <h3>שלחו לנו הודעה באמצעות מערכת האתר</h3>
+    <label for="fname">שם פרטי</label>
+    <input type="text" id="fname" name="firstname" maxlength="30">
+<p>
+    <label for="lname">שם משפחה</label>
+    <input type="text" id="lname" name="lastname" maxlength="20">
+</p>
+<p>
+    <label for="lname">כתובת מייל</label> <br>
+    <input type="email" id="email" name="email" maxlength="30">
+</p>
+    <label for="subject">כתבו לנו</label> <br>
+    <textarea id="subject" name="subject" style="height:120px"></textarea>
+
+<br>
+    <input type="submit" value="שלח">
+  </form>
+    </div>
+</body>
+</html>

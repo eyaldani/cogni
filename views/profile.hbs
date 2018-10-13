@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    {{> header}}
+    {{> toolbar}}
+
+    {{#if (invalidInput)}}
+    <p style="color:red">
+      חלק מהפרטים שהזנת לא הוזנו כשורה
+    </p>
+    {{else}}
+    <div class=center>
+    <p> <h1>
+    בדף זה תוכל לעדכן את הפרטים האישיים שלך
+  </h1> </p>
+    {{/if}}
+    <div class=profile_form>
+    <body dir="rtl" span style="font-family: tahoma;">
+      <form method="post" action="/profile">
+          <table>
+              <tr></tr><tr></tr>
+              <tr>
+                  <td>
+
+        </td>
+              </tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+
+
+              <tr>
+                <button onclick="undisablePsw()">אני מעוניין לשנות סיסמה</button>
+                  <td>
+        סיסמה נוכחית:
+        </td>
+                  <td>
+          <input type="password" id=passwordID name="password" class="wider" disabled oninput="check_old_password({{user.password}})">
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        סיסמה חדשה:
+        </td>
+                  <td>
+          <input type="password" id="opasswordID" name="opassword" class="wider" minlength="5" maxlength="20" disabled>
+        </td>
+              </tr>
+              <tr>
+                  <td>
+        אישור סיסמה חדשה:
+        </td>
+                  <td>
+          <input type="password" id="oopasswordID" name="oopassword" class="wider" minlength="5" maxlength="20" disabled oninput="check_new_password()">
+        </td>
+              </tr>
+            <tr>
+                <td>
+        שם פרטי:
+        </td>
+                  <td>
+          <input type="text" name="firstname" class="wider" maxlength="20" placeholder={{user.firstname}} required>
+        </td>
+              </tr>
+    <tr>
+        <td>
+          שם משפחה:
+          </td>
+                    <td>
+            <input type="text" name="lastname" class="wider" maxlength="20" placeholder={{user.lastname}} required>
+          </td>
+                </tr>
+    <tr>
+        <td>
+        מייל:
+          </td>
+                    <td>
+            <input type="email" name="email" class="wider" maxlength="40" placeholder={{user.email}} required>
+          </td>
+                </tr>
+
+    <tr>
+        <td>
+          {{#unless (admin)}}
+
+      פלאפון:
+          </td>
+                    <td>
+            <input type="tel" name="phone" class="wider" maxlength="10" placeholder={{user.phone}} required>
+          </td>
+                </tr>
+
+
+    {{#if (patient)}}
+
+    <tr>
+        <td>
+      כתובת:
+          </td>
+                    <td>עיר
+            <input type="text" name="city" class="wider" maxlength="20" placeholder={{user.city}} required>
+          </td>
+          <td>רחוב
+            <input type="text" name="street" class="wider" maxlength="20" placeholder={{user.street}} required><br>
+          </td>
+          <td>מספר בית
+            <input type="number" name="houseNumber" class="wider" maxlength="5" placeholder={{user.number}} required><br>
+          </td>
+                </tr>
+{{/if}}
+{{/unless}}
+              <tr>
+                  <td>
+
+
+                    <script>
+
+                      function check_old_password(password) {
+                        if (document.getElementById('passwordID').value != password) {
+                          document.getElementById('passwordID').style.backgroundColor = "red";
+                          passwordID.setCustomValidity('הסיסמה הנוכחית שגויה');
+                        }
+                        else {
+                          passwordID.setCustomValidity('');
+                        }
+
+                      }
+
+                      function check_new_password() {
+                        if (document.getElementById('opasswordID').value != document.getElementById('oopasswordID').value) {
+                            document.getElementById('oopasswordID').style.backgroundColor = "red";
+                            document.getElementById('opasswordID').style.backgroundColor = "red";
+                            opasswordID.setCustomValidity('הסיסמאות החדשות שהזנת אינן תואמות');
+                        } else {
+                          opasswordID.setCustomValidity('');
+                        }
+                      }
+
+
+                      function undisablePsw() {
+                          document.getElementById("passwordID").disabled = false;
+                          document.getElementById("opasswordID").disabled = false;
+                          document.getElementById("oopasswordID").disabled = false;
+                          document.getElementById("opasswordID").placeholder = "מינימום 5 תווים";
+
+                      }
+
+
+                      </script>
+
+
+
+
+      </td>
+                <td>
+      </td>
+            </tr>
+
+          </table>
+          <input type="submit" value="עדכן פרטים אישיים" class=center>
+          </div>
+      </form>
+
+</div>
+        {{> footer}}
+
+
+
+
+    </body>
+</html>
