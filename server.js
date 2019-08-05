@@ -1,3 +1,6 @@
+
+
+// importing the necessary libraries
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
@@ -7,18 +10,23 @@ const port = process.env.PORT || 3000;
 const session = require('express-session');
 const db = require('./db.js');
 
-
+// Creating a new express application
 let app = express();
 
-
+// setting up enging for our hbs files.
 app.set('view engine', 'hbs');
+// we will be using this folder for partials.
 hbs.registerPartials(__dirname + '/views/partials');
 
+// bodyparser returns middleware that only parses urlencoded bodies.
+// app.use() method clearify how we register a middleware and it takes in a functino
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({ secret: 'ItIsOurSercet', cookie: { maxAge: null }}))
 
+// the middleware is not going to move only when we can next().
+// if we would not put next in our middleware, the program will keep running and will never get into the next middleware.
 app.use((req, res, next) => {
   let now = new Date().toString();
   let log = (`${now}: ${req.method} ${req.url}`);
@@ -48,11 +56,13 @@ hbs.registerHelper('getCurrentYear', () => {
 let sess;
 let user;
 
+// A new user enters our site.
+// Based on user's permission, we will render his request.
 app.get('/', (req, res) => {
   sess = req.session;
-  sess.permission = 'Guest';
-  console.log(user);
   if (!user) {
+    console.log('THIS IS NOT A USER!!!')
+    sess.permission = 'Guest';
     res.render('login.hbs')
   } else if (sess.permission = 'Admin') {
     res.render('administrators.hbs', {
@@ -66,7 +76,8 @@ app.get('/', (req, res) => {
   }
 });
 
-
+// This functinon handles the case where a user entered our site.
+// It checks his unique details (username and password) with our database.
 app.post('/', (req, res) => {
   sess.username = req.body.username;
   sess.password = req.body.password;
@@ -93,6 +104,7 @@ app.post('/', (req, res) => {
       res.render('administrators.hbs', {
         user
       });
+      // If our user is not an admin, we will check if he is a therapist.
     } catch (e) {
       console.log('Username or password does not exits inside administrators');
       if (JSON.stringify(result) === '[]') {
@@ -120,6 +132,7 @@ app.post('/', (req, res) => {
             res.render('therapists.hbs', {
               user
             });
+            // If our user is not a therapist, we will check if he is a patient.
           } catch (e) {
             console.log('Username or password does not exits inside therapists');
             if (JSON.stringify(result) === '[]') {
@@ -150,6 +163,8 @@ app.post('/', (req, res) => {
                   res.render('patients.hbs', {
                     user
                   });
+                  // If our user is not a patient as well, that means that his details were not found in our db.
+                  // In that case, we will send him back to the login page, where he can reconnect his user (or register as a new user)
                 } catch (e) {
                   console.log('Username or password does not exits inside patients');
                   hbs.registerHelper('invalidInput', () => {
@@ -168,7 +183,7 @@ app.post('/', (req, res) => {
     })
   });
 
-
+// render a register page
 app.get('/register', (req, res) => {
   if (sess.permission !== 'Guest') {
     res.redirect('/');
@@ -178,6 +193,8 @@ app.get('/register', (req, res) => {
   });
 });
 
+
+// register our new user in DB
 app.post('/register', (req, res) => {
   console.log(req.body)
   let username = req.body.username
@@ -319,7 +336,7 @@ app.post('/profile', (req, res) => {
   if (user.permission === 'admin') {
     console.log('now we are going to update this admin!');
     if (!req.body.password) {
-      console.log('WITHOUS PASSWORD');
+      console.log('WITHOUT PASSWORD');
       let sql = 'UPDATE `cogni`.`administrators` SET `firstname`=?, `lastname`=?, `email`=? WHERE username=?;'
       db.query(sql, [firstname, lastname, email, username], (err, result, fields) => {
         if (err) {
@@ -327,12 +344,61 @@ app.post('/profile', (req, res) => {
         } else {
           console.log('The user: ' + user.username + ' has been updated.');
           console.log(JSON.stringify(result));
-          res.send('YES!!!');
+          res.redirect('/');
+        }
+      })
+    } else {
+      password = req.body.opassword
+      console.log('Change admin password.');
+      let sql = 'UPDATE `cogni`.`administrators` SET `password`=?, `firstname`=?, `lastname`=?, `email`=? WHERE username=?;'
+      db.query(sql, [password, firstname, lastname, email, username], (err, result, fields) => {
+        if (err) {
+          console.log('There was en ERROR inside the query');
+        } else {
+          console.log('The user: ' + user.username + ' has been updated.');
+          console.log(JSON.stringify(result));
+          res.redirect('/');
         }
       })
     };
+  } else if (user.permission === 'therapist') {
+    phone = req.body.phone
+    console.log('now we are going to update this therpaist!');
+    if (!req.body.password) {
+      console.log('Without passoword!');
+      let sql = 'UPDATE `cogni`.`therapists` SET `firstname`=?, `lastname`=?, `email`=?,  `phone`=? WHERE `username`= ?;'
+      db.query(sql, [firstname, lastname, email, phone, username], (err, result, fields) => {
+        if (err) {
+          console.log('There was an ERROR inside the query');
+        } else {
+          console.log('The user: ' + user.username + 'has been updated.');
+          console.log(JSON.stringify(result));
+          res.redirect('/');
+        }
+      })
+    }
   }
 })
+
+
+// User log out: we destroy our request session and restore user details.
+
+app.get('/logout', function(req, res, next) {
+  console.log(req.session)
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if (err) {
+        return next(err)
+      } else {
+        hbs.registerHelper(`${user.permission}`, () => {
+          return false
+        });
+        user = undefined
+        res.redirect('/');
+      }
+    })
+  }});
+
 
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);
